@@ -34,9 +34,28 @@ var log = function(ip, code, method, url, message){
 var killResponse = function(req, res, code, reason) {
   log(res.connection.remoteAddress, code, req.method, req.url, reason);
   //res.writeHead(code);
+	var ad = "My <img src=\"http://amazingports.com/img/logo.png\"/>lAd";
 	res.writeHead(200);
-	res.write("<img src=\"http://amazingports.com/img/logo.png\">");
-  res.end();
+	var request = require('request');
+	//http.createServer(function (req, res) {
+	  	console.log("fetching ad-----------");
+	request.get('http://amazingports.com/img/logo.png').pipe(res);
+	   /* var x = request('http://amazingports.com/img/logo.png', function(err, resp,body){
+				log(res.connection.remoteAddress, code, req.method, req.url, "piped------------");
+		res.write(body);
+		*/
+		//res.end();
+	  
+//	});
+//	    req.pipe(x)
+//	    x.pipe(res);
+
+	
+
+	
+	
+	//})
+	//res.write(ad);
 };
 
 var requestHandler = function(cReq, cRes) {
