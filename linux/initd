@@ -1,6 +1,5 @@
 #!/bin/sh
-
-#. /lib/lsb/init-functions
+# chkconfig: 345 20 80
 
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 START_IN=/opt/replad
