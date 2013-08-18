@@ -35,7 +35,7 @@ var killResponse = function(req, res, code, reason) {
   log(res.connection.remoteAddress, code, req.method, req.url, reason);
   //res.writeHead(code);
 	res.writeHead(200);
-	res.write("My Ad");
+	res.write("<img src=\"http://amazingports.com/img/logo.png\">");
   res.end();
 };
 
