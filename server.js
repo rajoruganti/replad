@@ -216,7 +216,6 @@ loadFilterLists();
 process.on('SIGUSR1', loadFilterLists);
 
 var server = http.createServer();
-server.listen(process.env.OPENSHIFT_NODEJS_PORT || 8080,
-           process.env.OPENSHIFT_NODEJS_IP);
+server.listen(process.env.OPENSHIFT_NODEJS_PORT || 8080);
 server.on('request', requestHandler);
 //server.listen(config.listenPort);
