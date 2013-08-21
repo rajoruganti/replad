@@ -34,14 +34,23 @@ var log = function(ip, code, method, url, message){
 var killResponse = function(req, res, code, reason) {
   log(res.connection.remoteAddress, code, req.method, req.url, reason);
   //res.writeHead(code);
+	var trumpet = require('trumpet');
+	var tr = trumpet();
+	tr.pipe(process.stdout);
+
+	
 	var ad = "My <img src=\"http://amazingports.com/img/logo.png\"/>lAd";
 	res.writeHead(200);
 	var request = require('request');
 	//http.createServer(function (req, res) {
 	  	console.log("fetching ad-----------");
-	request.get('http://amazingports.com/img/logo.png').pipe(res);
+	//request.get('http://amazingports.com/img/logo.png').pipe(res);
+	//res.write('<script type="text/javascript">var ados = ados || {};ados.run = ados.run || [];ados.run.push(function() {ados_addInlinePlacement(7522, 50118, 5).setClickUrl("-optional-click-macro-").loadInline();});</script><script type="text/javascript" src="http://static.adzerk.net/ados.js"></script>')
+	//res.write(ad);
+	log(res.connection.remoteAddress, code, req.method, req.url, "piped------------");
+	
+	
 	   /* var x = request('http://amazingports.com/img/logo.png', function(err, resp,body){
-				log(res.connection.remoteAddress, code, req.method, req.url, "piped------------");
 		res.write(body);
 		*/
 		//res.end();
@@ -102,15 +111,20 @@ var requestHandler = function(cReq, cRes) {
   pReq.on('response', function(pRes){
     var ip = cReq.connection.remoteAddress;
     log(ip, pRes.statusCode, cReq.method, cReq.url, pRes.headers.location);
-    pRes.on('data', function(chunk){
+	//console.log("============= getting page ---------"+cReq.url+"============="+pRes.headers.location);
+	var data = "";
+	pRes.on('data', function(chunk){
       if (!cRes.terminated) {
-        cRes.write(chunk, 'binary');
+		data +=chunk;
+    //    cRes.write(chunk, 'binary');
       }
     });
     pRes.on('end', function(){
-      if (!cRes.terminated) {
-        cRes.end();
-      }
+		//console.log(data);
+		cRes.write(data);
+      	if (!cRes.terminated) {
+        	cRes.end();
+      	}
     });
     cRes.writeHead(pRes.statusCode, pRes.headers);
   });
@@ -169,7 +183,7 @@ var parseFilterList = function(path){
   blacklist = append(blacklist, blEntries);
   whitelist = append(whitelist, wlEntries);
 
-  if (!config.quiet) { console.log('Loaded ' + path); }
+  if (!config.quiet) { console.log('Lo	aded ' + path); }
 };
 
 var loadFilterLists = function(){

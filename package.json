@@ -26,7 +26,8 @@
 
   "dependencies": {
     "express": "*",
-	"request": "2.27.0"
+	"request": "2.27.0",
+	"trumpet":"1.5.5"
   },
   "devDependencies": {},
   "bundleDependencies": [],
